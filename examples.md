@@ -1,0 +1,17 @@
+    bikes/
+        static/
+            js/
+                Leaflet.vector-markers.min.js
+                Leaflet.vector-markers.js
+            data/
+                Toulouse.csv
+            css/
+                Leaflet.vector-markers.css
+                Leaflet.vector-markers.css.map
+        lib/
+            __init__.py
+            JCDecaux.py
+        templates/
+            index.html
+        serve.py
+        update.py

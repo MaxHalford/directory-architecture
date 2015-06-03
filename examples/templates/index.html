@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <title>Bike stations</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+        <!-- Leaflet JS -->
+        <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+		<!-- Leaflet CSS -->
+		<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet'/>
+		<!-- Font-awesome -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- Leaflet vector markers -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/Leaflet.vector-markers.css') }}"/>
+        <script src="{{ url_for('static', filename='js/Leaflet.vector-markers.js') }}"></script>
+        <!-- Leaflet omnivore -->
+        <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+        <style>
+            body { margin:0; padding:0; }
+            #map { position:absolute; top:0; bottom:0; width:100%; }
+        </style>
+    
+    </head>
+    <body>
+
+    	<!-- Fullscreen plugin -->
+    	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
+		<!-- User location plugin -->
+		<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.42.0/L.Control.Locate.min.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.42.0/L.Control.Locate.mapbox.css' rel='stylesheet' />
+
+        <div id='map'></div>
+
+        <script>
+
+        	// transform a value from 0 to 1 into a color
+        	function getColor(value){
+    			var hue=((1-value)*120).toString(10);
+    			return ["hsl(",hue,",80%,60%)"].join("");
+			}
+
+			L.mapbox.accessToken = 'pk.eyJ1IjoibGVtYXgiLCJhIjoidnNDV1kzNCJ9.iH26jLhEuimYd6vLOO6v1g';
+
+			var map = L.mapbox.map('map', 'mapbox.emerald', {
+				maxZoom: 20
+			})
+
+			// initial location
+            map.setView([43.60426, 1.44367], 14);
+
+            // add plugins
+            L.control.fullscreen().addTo(map);
+            L.control.locate().addTo(map);
+
+            omnivore.csv("{{ url_for('static', filename='data/Toulouse.csv') }}", null, L.mapbox.featureLayer())
+            	.on('ready', function(layer) {
+					this.eachLayer(function(marker) {
+
+						var info = marker.toGeoJSON().properties
+
+						var bikes = info.available_bikes
+						var stands = info.available_bike_stands
+						var total = info.bike_stands
+						var update = info.last_update
+
+						var icon = L.VectorMarkers.icon({
+    						icon: 'circle',
+    						markerColor: getColor(1 - bikes / total),
+    						iconColor: getColor(1 - stands / total)
+  						});
+
+						// change the icons for each point on the map
+						 marker.setIcon(icon)
+
+						// create popup text to display the date, city, and country of the GPS data point
+						var popupText =
+							marker.toGeoJSON().properties.name +
+							'</br>' +
+							'<b>' + bikes + '</b>' + ' bike(s) available' +
+							'</br>' +
+							'<b>' + stands + '</b>' + ' bike stand(s) available' +
+							'</br>' +
+							'Updated @ ' + '<b>' + update + '</b>';
+							
+						// bind the popup to each icon
+						marker.bindPopup(popupText);
+					});
+				})
+			.addTo(map);
+
+        </script>
+
+    </body>
+
+</html>
