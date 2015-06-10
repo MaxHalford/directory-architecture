@@ -1,4 +1,4 @@
-    bikes/
+    example/
         static/
             js/
                 Leaflet.vector-markers.min.js
@@ -8,6 +8,7 @@
             css/
                 Leaflet.vector-markers.css
                 Leaflet.vector-markers.css.map
+                Leaflet.vector-markers.css.map~
         lib/
             __init__.py
             JCDecaux.py

@@ -1,9 +1,10 @@
 from os import walk
 
 # Choose a directory
-directory = 'bikes'
+path = 'example'
+directory = path.split('/')[-1]
 # Initialize a string which will become a markdown file
-markup = '    {0}/'.format(directory.split('/')[-1])
+markup = '    {0}/'.format(directory)
 
 
 def display(path, space='        '):
@@ -11,7 +12,7 @@ def display(path, space='        '):
     # Modify the previously initialized string
     global markup
     # Get all the directories and files of the current path
-    _, directories, files = list(walk(path))[0]
+    _, directories, files = next(walk(path))
     # If there are sub-directories
     if directories:
         # For each sub-directory
@@ -28,7 +29,7 @@ def display(path, space='        '):
             markup += '\n{0}{1}'.format(space, file)
 
 # Apply the function to a directory and it will go through it recursively
-display(directory)
+display(path)
 
 # Save the file as a markdown file, it will be a pretty "well"
 with open('{0}.md'.format(directory), 'w') as file:

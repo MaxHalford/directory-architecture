@@ -1,4 +1,6 @@
-# Markup-Directory
+# File Manager
+
+## Markup Directory
 
 When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. With markup languages you can create pretty "wells" where this looks good:
 
@@ -20,6 +22,17 @@ When I make tutorials or give reports I like displaying all the files and direct
         serve.py
         update.py
 
-These can be cumbersome to type by hand and so I wrote a small script to generate these automatically. All you have to do is modify the ``directory`` variable in the ``convert.py`` script and run the script. This will produce a markdown script called ``directory.md`` which you can copy paste in any markdown file.
+These can be cumbersome to type by hand and so I wrote a small script to generate these automatically. All you have to do is modify the ``path`` variable in the ``convert.py`` script and run the script. This will produce a markdown script called ``directory.md`` which you can copy paste in any markdown file.
 
 If you want to adapt this for other markup languages (YAML for example) don't hesitate, it shouldn't be too hard! If you can't be bothered and really need it to work for another language send me a mail (**``maxhalford25@gmail.com``**) and I'll add it with pleasure.
+
+### To do
+
+- Add filter
+- Add other formats
+- Make the script callable from the shell
+- Make interface
+
+## Directory cleaner
+
+On Ubuntu temporary files are not "transparent", ie. files with a ``~`` remain. It's nice to have a simple script that deletes all of these, either to save up memory or before sharing with someone.
