@@ -1,6 +1,4 @@
-# File Manager
-
-## Markup Directory
+# Markup Directory
 
 When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. With markup languages you can create pretty "wells" where this looks good:
 
@@ -32,7 +30,3 @@ If you want to adapt this for other markup languages (YAML for example) don't he
 - Add other formats
 - Make the script callable from the shell
 - Make interface
-
-## Directory cleaner
-
-On Ubuntu temporary files are not "transparent", ie. files with a ``~`` remain. It's nice to have a simple script that deletes all of these, either to save up memory or before sharing with someone.
