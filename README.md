@@ -1,32 +1,43 @@
-# Markup Directory
+# Directory Architecture
 
-When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. With markup languages you can create pretty "wells" where this looks good:
+When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. These can be cumbersome to type by hand and so I wrote a small script to generate these automatically.
 
-	bikes/
-        static/
-            js/
-                Leaflet.vector-markers.min.js
-                Leaflet.vector-markers.js
-            data/
-                Toulouse.csv
-            css/
-                Leaflet.vector-markers.css
-                Leaflet.vector-markers.css.map
-        lib/
-            __init__.py
-            JCDecaux.py
-        templates/
-            index.html
-        serve.py
-        update.py
+## Example
 
-These can be cumbersome to type by hand and so I wrote a small script to generate these automatically. All you have to do is modify the ``path`` variable in the ``convert.py`` script and run the script. This will produce a markdown script called ``directory.md`` which you can copy paste in any markdown file.
+With markup languages you can create "wells" where this looks good.
 
-If you want to adapt this for other markup languages (YAML for example) don't hesitate, it shouldn't be too hard! If you can't be bothered and really need it to work for another language send me a mail (**``maxhalford25@gmail.com``**) and I'll add it with pleasure.
+    example
+    ├───┐ static
+    │   ├───┐ js
+    │   │   ├─── Leaflet.vector-markers.min.js
+    │   │   └─── Leaflet.vector-markers.js
+    │   ├───┐ data
+    │   │   └─── Toulouse.csv
+    │   └───┐ css
+    │       ├─── Leaflet.vector-markers.css
+    │       └─── Leaflet.vector-markers.css.map
+    ├───┐ lib
+    │   ├─── __init__.py
+    │   └─── JCDecaux.py
+    ├───┐ templates
+    │   └─── index.html
+    ├─── serve.py
+    └─── update.py
 
-### To do
+## Usage
+
+    cd Directory-Architecture
+    ./probe example/
+
+By doing this a markdown file called ``architecture.md`` is saved into the directory to be probed. It ressembles the example above.
+
+Make sure to not forget the ``/`` to the end of the pathname, or else ``architecture.md`` will be saved into ``Directory-Architecture``.
+
+You can use both absolute and relative paths.
+
+## To do
 
 - Add filter
-- Add other formats
 - Make the script callable from the shell
-- Make interface
+
+If you want to implement a new feature please feel free to send me a mail (**``maxhalford25@gmail.com``**) and I'll be glad to help.

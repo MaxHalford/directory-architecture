@@ -1,0 +1,86 @@
+#!/usr/bin/python3
+
+from os import walk
+from sys import argv
+
+# The user inputs a directory
+assert len(argv) >= 2, 'Please specify the path of a directory.'
+path = argv[1]
+directory = path.split('/')[-1]
+# Initialize a string which will become a markdown file
+markup = '    {0}'.format(directory)
+
+def replace(string, step):
+    ''' Replace big gaps with '│' at regular intervals. '''
+    newString = list(string)
+    for i in range(step-1, len(newString), step):
+        newString[i] = '│'
+    return ''.join(newString)
+
+def display(path, space='       ', level=0):
+    ''' We need a recursive function. '''
+    # Modify the previously initialized string
+    global markup
+    # Get all the directories and files of the current path
+    _, directories, files = next(walk(path))
+    # If there are sub-directories
+    if directories:
+        # For each sub-directory
+        for directory in directories[:-1]:
+            if not directory.startswith('.'):
+                # Add the sub-directory name to the string
+                if level != 0:
+                    if level >= 2:
+                        markup += '\n    │{0}{1}'.format(replace(' ' * (len(space)-8), 4) + '├───┐ ', directory)
+                    else:
+                        markup += '\n    │{0}{1}'.format(' ' * (len(space)-8) + '├───┐ ', directory)
+                else:
+                    markup += '\n    {0} {1}'.format(' ' * (len(space)-8) + '├───┐', directory)
+                # Check all the sub-directories and files of the sub-directory
+                display('{0}/{1}'.format(path, directory), space + '    ', level+1)
+        # Different style for the last directory
+        directory = directories[-1]
+        if not directory.startswith('.'):
+            # Add the sub-directory name to the string
+            if level != 0:
+                if level >= 2:
+                    markup += '\n    │{0}{1}'.format(replace(' ' * (len(space)-8), 4) + '├───┐ ', directory)
+                else:
+                    markup += '\n    │{0}{1}'.format(' ' * (len(space)-8) + '├───┐ ', directory)
+                # Check all the sub-directories and files of the sub-directory
+                display('{0}/{1}'.format(path, directory), space + '    ', level+1)
+            else:
+                # Add the sub-directory name to the string
+                markup += '\n    ├{0}{1}'.format(' ' * (len(space)-8) + '───┐ ', directory)
+                # Check all the sub-directories and files of the sub-directory
+                display('{0}/{1}'.format(path, directory), space + '    ', level+1)
+    # If there are files
+    if files:
+        # For each file
+        for file in files[:-1]:
+            # Add it to the string
+            if level != 0:
+                if level >= 2:
+                    markup += '\n    │{0}├─── {1}'.format(replace(' ' * (len(space)-8), 4), file)
+                else:
+                    markup += '\n    │{0}├─── {1}'.format(' ' * (len(space)-8), file)
+            else:
+                markup += '\n    {0}├─── {1}'.format(' ' * (len(space)-8), file)
+        # Different style for the last file
+        if level != 0:
+            if level >= 2:
+                markup += '\n    │{0}└─── {1}'.format(replace(' ' * (len(space)-8), 4), files[-1])
+            else:
+                markup += '\n    │{0}└─── {1}'.format(' ' * (len(space)-8), files[-1])
+        else:
+            markup += '\n    └{0}─── {1}'.format(' ' * (len(space)-8), files[-1])
+    
+
+# Apply the function to a directory and it will go through it recursively
+display(path)
+
+# Save the file as a markdown file, it will be a pretty "well"
+with open('{0}architecture.md'.format(path), 'w') as file:
+    file.write(markup)
+
+print ('{0}architecture.md'.format(path) + ' successively saved.')
