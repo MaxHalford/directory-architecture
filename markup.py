@@ -17,20 +17,22 @@ def display(path, space='        '):
     if directories:
         # For each sub-directory
         for directory in directories:
-            # Add the sub-directory name to the string
-            markup += '\n{0}{1}/'.format(space, directory)
-            # Check all the sub-directories and files of the sub-directory
-            display('{0}/{1}'.format(path, directory), space + '    ')
+            if not directory.startswith('.'):
+                # Add the sub-directory name to the string
+                markup += '\n{0}-{1}/'.format(space, directory)
+                # Check all the sub-directories and files of the sub-directory
+                display('{0}/{1}'.format(path, directory), space + '    ')
     # If there are file
     if files:
         # For each file
         for file in files:
             # Add it to the string
-            markup += '\n{0}{1}'.format(space, file)
+            markup += '\n{0}-{1}'.format(space, file)
+    
 
 # Apply the function to a directory and it will go through it recursively
 display(path)
 
 # Save the file as a markdown file, it will be a pretty "well"
-with open('{0}.md'.format(directory), 'w') as file:
+with open('{0}/architecture.md'.format(path), 'w') as file:
     file.write(markup)
