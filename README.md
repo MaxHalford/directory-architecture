@@ -1,10 +1,14 @@
 # Directory Architecture
 
-When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. These can be cumbersome to type by hand and so I wrote a small script to generate these automatically.
+When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. These can be cumbersome to type by hand and so I wrote a small script to generate these automatically, a bit like [tree](http://linux.die.net/man/1/tree).
 
-## Example
+## Usage
 
-With markup languages you can create "wells" where this looks good.
+### Basic
+
+```sh
+./probe example/
+```
 
     example
     ├───┐ static
@@ -24,20 +28,50 @@ With markup languages you can create "wells" where this looks good.
     ├─── serve.py
     └─── update.py
 
-## Usage
+By doing this a markdown file called ``architecture.md`` is saved into the directory that is probed. It ressembles the example above. You can use both absolute and relative paths. You don't have to worry about the `/` at the end.
 
-    cd Directory-Architecture
-    ./probe example/
+### Ignoring files with certain extensions
 
-By doing this a markdown file called ``architecture.md`` is saved into the directory to be probed. It ressembles the example above.
+```sh
+./probe example/ -i js css
+```
 
-Make sure to not forget the ``/`` to the end of the pathname, or else ``architecture.md`` will be saved into ``Directory-Architecture``.
+    example
+    ├───┐ static
+    │   ├───┐ js
+    │   ├───┐ data
+    │   │   └─── Toulouse.csv
+    │   └───┐ css
+    │       └─── Leaflet.vector-markers.css.map
+    ├───┐ lib
+    │   ├─── __init__.py
+    │   └─── JCDecaux.py
+    ├───┐ templates
+    │   └─── index.html
+    ├─── serve.py
+    ├─── architecture.md
+    └─── update.py
 
-You can use both absolute and relative paths.
+### Probing to a certain level
+
+```sh
+./probe example/ -d 0
+```
+    example
+    ├───┐ static
+    ├───┐ lib
+    ├───┐ templates
+    ├─── serve.py
+    ├─── architecture.md
+    └─── update.py
 
 ## To do
 
 - Add filter
-- Make the script callable from the shell
+- Add prety graphics
 
-If you want to implement a new feature please feel free to send me a mail (**``maxhalford25@gmail.com``**) and I'll be glad to help.
+## Contact
+
+If you want to implement a new feature please feel free to send me a mail (<maxhalford25@gmail.com>) and I'll be glad to discuss/help.
+
+[Reddit thread](http://www.reddit.com/r/Python/comments/3b2gw1/probing_a_directory_to_extract_the_architecture/)
