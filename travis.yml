@@ -1,1 +1,14 @@
+<<<<<<< HEAD
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "nightly"
+install: "pip install -r requirements.txt"
+script: nosetests
+=======
 
+>>>>>>> 6d6a81a4ce2254a867439a0e6fecbd3d23430c52
