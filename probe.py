@@ -1,8 +1,7 @@
-#!/usr/bin/python3
-
 from os import walk
 import argparse
 
+assert 1==1, 'Just a test.'
 
 parser = argparse.ArgumentParser()
 # The path to the directory is required
@@ -114,12 +113,12 @@ def display(path, space='       ', level=0, hasFiles=True):
                 else:
                     markup += '\n    └{0}─── {1}'.format(' ' * (len(space)-8), files[-1])
     
+if __name__ == '__main__':
+    # Apply the function to a directory and it will go through it recursively
+    display(path)
 
-# Apply the function to a directory and it will go through it recursively
-display(path)
+    # Save the file as a markdown file, it will be a pretty "well"
+    with open('{0}architecture.md'.format(path), 'w') as file:
+        file.write(markup)
 
-# Save the file as a markdown file, it will be a pretty "well"
-with open('{0}architecture.md'.format(path), 'w') as file:
-    file.write(markup)
-
-print ('{0}architecture.md'.format(path) + ' successively saved.')
+    print ('{0}architecture.md'.format(path) + ' successively saved.')

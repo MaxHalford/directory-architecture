@@ -9,7 +9,7 @@ When I make tutorials or give reports I like displaying all the files and direct
 ### Basic
 
 ```sh
-./probe example/
+python probe.py example/
 ```
 
     example
@@ -35,7 +35,7 @@ By doing this a markdown file called ``architecture.md`` is saved into the direc
 ### Ignoring files with certain extensions
 
 ```sh
-./probe example/ -i js css
+python probe.py example/ -i js css
 ```
 
     example
@@ -57,7 +57,7 @@ By doing this a markdown file called ``architecture.md`` is saved into the direc
 ### Probing to a certain level
 
 ```sh
-./probe example/ -d 0
+python probe.py example/ -d 0
 ```
     example
     ├───┐ static

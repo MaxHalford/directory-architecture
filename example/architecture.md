@@ -1,7 +1,15 @@
     example
-    ├───┐ static
     ├───┐ lib
+    │   ├─── __init__.py
+    │   └─── JCDecaux.py
+    ├───┐ static
+    │   ├───┐ css
+    │   │   └─── Leaflet.vector-markers.css.map
+    │   ├───┐ data
+    │   │   └─── Toulouse.csv
+    │   └───┐ js
     ├───┐ templates
-    ├─── serve.py
+    │   └─── index.html
     ├─── architecture.md
+    ├─── serve.py
     └─── update.py
