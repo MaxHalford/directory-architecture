@@ -2,6 +2,8 @@
 
 ![Build Status](https://travis-ci.org/MaxHalford/Directory-Architecture.svg)
 
+Works with Python 3.
+
 When I make tutorials or give reports I like displaying all the files and directories of a project like a cascade. These can be cumbersome to type by hand and so I wrote a small script to generate these automatically, a bit like [tree](http://linux.die.net/man/1/tree).
 
 ## Usage
